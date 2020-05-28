@@ -8,7 +8,7 @@ inputs:
     description: 'Nexus password'
     required: true
   serviceName:
-    description: 'Project's system name'
+    description: 'Project system name'
     required: true
   releaseVersion:
     description: 'ReleaseVersion of project'
