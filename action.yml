@@ -13,7 +13,7 @@ inputs:
   releaseVersion:
     description: 'ReleaseVersion of project'
     required: true
- releaseRevision:
+  releaseRevision:
     description: 'Release revision'
     required: true
 runs:
