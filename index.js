@@ -4,10 +4,10 @@ const core = require('@actions/core');
 const request = require('request')
 const str = require('underscore.string');
 
-const getValue = (path) => {
-    const value = core.getInput(path);
+const getValue = (parameter) => {
+    const value = core.getInput(parameter);
     if (str.isBlank(value)) {
-        const errorMessage = `Parameter '${path}' is required.`;
+        const errorMessage = `Parameter '${parameter}' is required.`;
         core.setFailed(errorMessage);
         throw new Error(errorMessage);
     }
@@ -17,8 +17,8 @@ const getValue = (path) => {
 const username = getValue('username');
 const password = getValue('password');
 const serviceName = getValue('serviceName');
-const version = getValue('releaseVersion');;
-const vcsRevision = '1111111';
+const version = getValue('releaseVersion');
+const vcsRevision = getValue('releaseRevision');
 
 const baseServiceUrl = `https://nexus-services.directcrm.ru/releases/create-built-release`;
 
@@ -26,6 +26,7 @@ const auth = {
     username: username,
     password: password
 };
+
 const body = {
     serviceName: serviceName,
     vcsRevision: vcsRevision,
@@ -51,4 +52,5 @@ const options = {
     body: body,
     json: true
 };
+
 sendBuild(options);

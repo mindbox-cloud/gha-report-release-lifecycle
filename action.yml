@@ -8,10 +8,13 @@ inputs:
     description: 'Nexus password'
     required: true
   serviceName:
-    description: 'Project system name'
+    description: 'Project's system name'
     required: true
   releaseVersion:
     description: 'ReleaseVersion of project'
+    required: true
+  releaseRevision:
+    description: 'Release revision'
     required: true
 runs:
   using: 'node12'
