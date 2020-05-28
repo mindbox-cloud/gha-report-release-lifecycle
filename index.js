@@ -1,8 +1,8 @@
 "use strict";
 
-Object.defineProperty(exports, "__esModule", { value: true });
 const core = require('@actions/core');
 const request = require('request')
+const str = require('underscore.string');
 
 const getValue = (path) => {
     const value = core.getInput(path);
@@ -52,4 +52,3 @@ const options = {
     json: true
 };
 sendBuild(options);
-//# sourceMappingURL=index.js.map
