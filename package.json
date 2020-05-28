@@ -1,0 +1,25 @@
+{
+  "name": "gha-report-release-lifecycle",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mindbox-moscow/gha-report-release-lifecycle.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mindbox-moscow/gha-report-release-lifecycle/issues"
+  },
+  "homepage": "https://github.com/mindbox-moscow/gha-report-release-lifecycle#readme",
+  "dependencies": {
+    "@actions/core": "^1.2.4",
+    "@actions/github": "^2.2.0",
+    "request": "^2.88.2"
+  }
+}

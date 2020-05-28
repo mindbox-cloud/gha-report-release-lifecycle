@@ -1,0 +1,18 @@
+name: 'Release lifecycle logs'
+description: 'Send To Nexus information of build'
+inputs:
+  username:
+    description: 'Nexus login'
+    required: true
+  password:
+    description: 'Nexus password'
+    required: true
+  serviceName:
+    description: 'Project system name'
+    required: true
+  releaseVersion:
+    description: 'ReleaseVersion of project'
+    required: true
+runs:
+  using: 'node12'
+  main: './index.js'
