@@ -1,0 +1,22 @@
+name: Test
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v1
+        with:
+          fetch-depth: 1
+      - run: npm install
+      - name: Release lifecycle logs
+        uses: ./
+        with:
+          username: ${{ secrets.Nexus_Login }}
+          password: ${{ secrets.Nexus_Password }}
+          serviceName: 'Test1'
+          releaseVersion: '1.0.799'
+      
