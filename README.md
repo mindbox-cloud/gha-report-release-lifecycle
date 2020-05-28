@@ -1,2 +1,2 @@
 # gha-report-release-lifecycle
-TestV2
+GitHub Action для отправки информации о билде в Nexus
