@@ -4,7 +4,7 @@
   "description": "action to send information about build",
   "main": "index.js",
   "dependencies": {
-    "@actions/core": "^1.2.4",
+    "@actions/core": "^1.9.1",
     "@types/node": "^14.0.6",
     "@types/request": "^2.48.5",
     "@types/underscore.string": "0.0.38",
