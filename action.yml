@@ -17,5 +17,5 @@ inputs:
     description: 'Release revision'
     required: true
 runs:
-  using: 'node12'
-  main: './index.js'
+  using: 'node16'
+  main: './dist/index.js'

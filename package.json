@@ -1,25 +1,38 @@
 {
   "name": "gha-report-release-lifecycle",
-  "version": "1.0.2",
+  "version": "2.0.0",
   "description": "action to send information about build",
-  "main": "index.js",
+  "main": "dist/index.js",
   "dependencies": {
-    "@actions/core": "^1.2.4",
-    "@types/node": "^14.0.6",
-    "@types/request": "^2.48.5",
-    "@types/underscore.string": "0.0.38",
-    "request": "^2.88.2",
-    "typescript": "^3.9.3",
-    "underscore.string": "^3.3.5"
+    "@actions/core": "^1.10.0",
+    "@actions/github": "^5.1.1",
+    "node-fetch": "^3.2.10"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.9",
+    "@typescript-eslint/eslint-plugin": "^5.42.1",
+    "@typescript-eslint/parser": "^5.42.1",
+    "@vercel/ncc": "^0.34.0",
+    "eslint": "^8.27.0",
+    "eslint-import-resolver-typescript": "^3.5.2",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-prettier": "^4.2.1",
+    "prettier": "^2.7.1",
+    "typescript": "^4.8.4"
   },
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "format": "prettier --write '**/*.ts'",
+    "format-check": "prettier --check '**/*.ts'",
+    "lint": "eslint src/**/*.ts",
+    "package": "ncc build src/index.js --license licenses.txt",
+    "all": "npm run format && npm run lint && npm run build && npm run package"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mindbox-moscow/gha-report-release-lifecycle.git"
   },
-  "author": "",
+  "author": "Mindbox",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/mindbox-moscow/gha-report-release-lifecycle/issues"
