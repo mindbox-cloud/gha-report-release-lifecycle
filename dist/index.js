@@ -13827,6 +13827,7 @@ function run() {
         const serviceName = getValue('serviceName');
         const version = getValue('releaseVersion');
         const vcsRevision = getValue('releaseRevision');
+        const pipelinesAuthToken = core.getInput('pipelinesAuthToken');
         const runId = github.context.runId;
         const nexusServiceUrl = `https://nexus-services.mindbox.ru/releases/create-built-release`;
         const nexusBody = {
@@ -13853,6 +13854,7 @@ function run() {
             body: JSON.stringify(pipelinesBody),
             headers: {
                 'Content-Type': 'application/json',
+                Authorization: 'Bearer ' + pipelinesAuthToken,
             },
         };
         yield sendBuild(nexusServiceUrl, nexusOptions);
