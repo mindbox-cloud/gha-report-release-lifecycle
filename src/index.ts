@@ -66,8 +66,6 @@ async function run(): Promise<void> {
       },
     };
 
-    console.log(pipelinesOptions.body);
-
     await sendBuild(pipelinesServiceUrl, pipelinesOptions);
   }
 }

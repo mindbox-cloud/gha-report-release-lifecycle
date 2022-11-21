@@ -13850,7 +13850,6 @@ function run() {
                     Authorization: 'Bearer ' + pipelinesAuthToken,
                 },
             };
-            console.log(pipelinesOptions.body);
             yield sendBuild(pipelinesServiceUrl, pipelinesOptions);
         }
     });
