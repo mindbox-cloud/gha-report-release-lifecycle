@@ -28,6 +28,8 @@ async function run(): Promise<void> {
   const pipelinesAuthToken = core.getInput('pipelinesAuthToken');
 
   const runId = github.context.runId;
+  console.log(runId);
+  console.log(JSON.stringify(process.env));
 
   const nexusServiceUrl = `https://nexus-services.mindbox.ru/releases/create-built-release`;
 
