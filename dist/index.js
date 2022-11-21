@@ -13811,22 +13811,13 @@ function sendBuild(url, options) {
         }
     });
 }
-function getValue(parameter) {
-    const value = core.getInput(parameter);
-    if (value.trim().length === 0) {
-        const errorMessage = `Parameter '${parameter}' is required.`;
-        core.setFailed(errorMessage);
-        throw new Error(errorMessage);
-    }
-    return value;
-}
 function run() {
     return __awaiter(this, void 0, void 0, function* () {
-        const username = getValue('username');
-        const password = getValue('password');
-        const serviceName = getValue('serviceName');
-        const version = getValue('releaseVersion');
-        const vcsRevision = getValue('releaseRevision');
+        const username = core.getInput('username', { required: true });
+        const password = core.getInput('password', { required: true });
+        const serviceName = core.getInput('serviceName', { required: true });
+        const version = core.getInput('releaseVersion', { required: true });
+        const vcsRevision = core.getInput('releaseRevision', { required: true });
         const pipelinesAuthToken = core.getInput('pipelinesAuthToken');
         const runId = github.context.runId;
         const nexusServiceUrl = `https://nexus-services.mindbox.ru/releases/create-built-release`;
@@ -13843,22 +13834,24 @@ function run() {
                 Authorization: 'Basic ' + Buffer.from(username + ':' + password).toString('base64'),
             },
         };
-        const pipelinesServiceUrl = `https://pipelines-services.mindbox.ru/releases/submit-data`;
-        const pipelinesBody = {
-            serviceName: serviceName,
-            version: version,
-            runId: runId,
-        };
-        const pipelinesOptions = {
-            method: 'post',
-            body: JSON.stringify(pipelinesBody),
-            headers: {
-                'Content-Type': 'application/json',
-                Authorization: 'Bearer ' + pipelinesAuthToken,
-            },
-        };
         yield sendBuild(nexusServiceUrl, nexusOptions);
-        yield sendBuild(pipelinesServiceUrl, pipelinesOptions);
+        if (pipelinesAuthToken.length !== 0) {
+            const pipelinesServiceUrl = `https://pipelines-services.mindbox.ru/releases/submit-data`;
+            const pipelinesBody = {
+                serviceName: serviceName,
+                version: version,
+                runId: runId,
+            };
+            const pipelinesOptions = {
+                method: 'post',
+                body: JSON.stringify(pipelinesBody),
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: 'Bearer ' + pipelinesAuthToken,
+                },
+            };
+            yield sendBuild(pipelinesServiceUrl, pipelinesOptions);
+        }
     });
 }
 run();

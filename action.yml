@@ -16,6 +16,8 @@ inputs:
   releaseRevision:
     description: 'Release revision'
     required: true
+  pipelinesAuthToken:
+    description: 'Authentication token for pipelines microservice'
 runs:
   using: 'node16'
   main: './dist/index.js'

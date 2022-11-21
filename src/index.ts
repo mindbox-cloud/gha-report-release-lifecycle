@@ -19,25 +19,12 @@ async function sendBuild(url: string, options: RequestInit): Promise<void> {
   }
 }
 
-function getValue(parameter: string): string {
-  const value = core.getInput(parameter);
-
-  if (value.trim().length === 0) {
-    const errorMessage = `Parameter '${parameter}' is required.`;
-    core.setFailed(errorMessage);
-
-    throw new Error(errorMessage);
-  }
-
-  return value;
-}
-
 async function run(): Promise<void> {
-  const username = getValue('username');
-  const password = getValue('password');
-  const serviceName = getValue('serviceName');
-  const version = getValue('releaseVersion');
-  const vcsRevision = getValue('releaseRevision');
+  const username = core.getInput('username', { required: true });
+  const password = core.getInput('password', { required: true });
+  const serviceName = core.getInput('serviceName', { required: true });
+  const version = core.getInput('releaseVersion', { required: true });
+  const vcsRevision = core.getInput('releaseRevision', { required: true });
   const pipelinesAuthToken = core.getInput('pipelinesAuthToken');
 
   const runId = github.context.runId;
@@ -59,25 +46,28 @@ async function run(): Promise<void> {
     },
   };
 
-  const pipelinesServiceUrl = `https://pipelines-services.mindbox.ru/releases/submit-data`;
-
-  const pipelinesBody = {
-    serviceName: serviceName,
-    version: version,
-    runId: runId,
-  };
-
-  const pipelinesOptions = {
-    method: 'post',
-    body: JSON.stringify(pipelinesBody),
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Bearer ' + pipelinesAuthToken,
-    },
-  };
-
   await sendBuild(nexusServiceUrl, nexusOptions);
-  await sendBuild(pipelinesServiceUrl, pipelinesOptions);
+
+  if (pipelinesAuthToken.length !== 0) {
+    const pipelinesServiceUrl = `https://pipelines-services.mindbox.ru/releases/submit-data`;
+
+    const pipelinesBody = {
+      serviceName: serviceName,
+      version: version,
+      runId: runId,
+    };
+
+    const pipelinesOptions = {
+      method: 'post',
+      body: JSON.stringify(pipelinesBody),
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: 'Bearer ' + pipelinesAuthToken,
+      },
+    };
+
+    await sendBuild(pipelinesServiceUrl, pipelinesOptions);
+  }
 }
 
 run();
