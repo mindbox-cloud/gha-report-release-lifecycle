@@ -22,7 +22,7 @@ async function sendBuild(url: string, options: RequestInit): Promise<void> {
 async function run(): Promise<void> {
   const serviceName = core.getInput('serviceName', { required: true });
   const version = core.getInput('releaseVersion', { required: true });
-  const pipelinesAuthToken = core.getInput('pipelinesAuthToken');
+  const pipelinesAuthToken = core.getInput('pipelinesAuthToken', { required: true });
 
   const runId = github.context.runId;
 
