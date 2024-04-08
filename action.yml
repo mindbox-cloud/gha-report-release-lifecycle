@@ -1,23 +1,15 @@
 name: 'Release lifecycle logs'
 description: 'Send To Nexus information of build'
 inputs:
-  username:
-    description: 'Nexus login'
-    required: true
-  password:
-    description: 'Nexus password'
-    required: true
   serviceName:
     description: 'Project system name'
     required: true
   releaseVersion:
     description: 'ReleaseVersion of project'
     required: true
-  releaseRevision:
-    description: 'Release revision'
-    required: true
   pipelinesAuthToken:
     description: 'Authentication token for pipelines microservice'
+    required: true
 runs:
   using: 'node16'
   main: './dist/index.js'
