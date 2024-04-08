@@ -20,33 +20,11 @@ async function sendBuild(url: string, options: RequestInit): Promise<void> {
 }
 
 async function run(): Promise<void> {
-  const username = core.getInput('username', { required: true });
-  const password = core.getInput('password', { required: true });
   const serviceName = core.getInput('serviceName', { required: true });
   const version = core.getInput('releaseVersion', { required: true });
-  const vcsRevision = core.getInput('releaseRevision', { required: true });
   const pipelinesAuthToken = core.getInput('pipelinesAuthToken');
 
   const runId = github.context.runId;
-
-  const nexusServiceUrl = `https://nexus-services.mindbox.ru/releases/create-built-release`;
-
-  const nexusBody = {
-    serviceName: serviceName,
-    vcsRevision: vcsRevision,
-    version: version,
-  };
-
-  const nexusOptions = {
-    method: 'post',
-    body: JSON.stringify(nexusBody),
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: 'Basic ' + Buffer.from(username + ':' + password).toString('base64'),
-    },
-  };
-
-  await sendBuild(nexusServiceUrl, nexusOptions);
 
   if (pipelinesAuthToken.length !== 0) {
     const pipelinesServiceUrl = `https://pipelines-services.mindbox.ru/releases/submit-data`;
